@@ -46,6 +46,8 @@ mundoInicial = Game {
     pontuacaoPlayer2 = 0
 }
 
+jogoPausado = mundoInicial { finalJogo = 0, velocidade = (0, 0) }
+
 corParedes = light (light (light black))
 
 padding = 20
@@ -164,6 +166,8 @@ eventosTeclado (EventKey (Char char) _ _ _) game
     | char == 'l' = renderizarPlayer1 $ novaPosicaoBaixoRaquete $ player1 game
     | char == 'w' = renderizarPlayer2 $ novaPosicaoCimaRaquete $ player2 game
     | char == 's' = renderizarPlayer2 $ novaPosicaoBaixoRaquete $ player2 game
+    | char == 'r' = mundoInicial
+    | char == 'p' = jogoPausado
     where
         renderizarPlayer1 posicao = game { player1 = posicao}
         renderizarPlayer2 posicao = game { player2 = posicao}
