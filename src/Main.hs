@@ -24,7 +24,7 @@ data PingPongGame = Game {
 } deriving Show
 
 -- Define a velocidade utilizada em todo o jogo.
-velocidadePadrao = (146, 50)
+velocidadePadrao = (196, 110)
 
 -- Define a janela do jogo.
 window :: Display
@@ -50,7 +50,7 @@ mundoInicial = Game {
     velocidadeBola1 = (0, 0),
     modoMenu = False,
     posicaoBola = (0, 0),
-    velocidade = (-200, 246),
+    velocidade = velocidadePadrao,
     player1 = 0,
     player2 = 0,
     finalJogo = (-600),
@@ -216,8 +216,8 @@ definirDirecao game = novoMundo
             | otherwise = atualX2
         novoMundo
             | modoMenu game = game { velocidade = (novoX, novoY), velocidadeBola1 = (novoX2, novoY2)}
-            | analiseGol game && golNaEsquerda (posicaoBola game) = mundoInicial { pontuacaoPlayer2 = pontuacaoAtualPlayer2 + 1, pontuacaoPlayer1 = pontuacaoAtualPlayer1, velocidade = velocidadeAleatoria}
-            | analiseGol game && golNaDireita (posicaoBola game) = mundoInicial { pontuacaoPlayer1 = pontuacaoAtualPlayer1 + 1, pontuacaoPlayer2 = pontuacaoAtualPlayer2, velocidade = velocidadeAleatoria}
+            | analiseGol game && golNaEsquerda (posicaoBola game) = mundoInicial { pontuacaoPlayer2 = pontuacaoAtualPlayer2 + 1, pontuacaoPlayer1 = pontuacaoAtualPlayer1 }
+            | analiseGol game && golNaDireita (posicaoBola game) = mundoInicial { pontuacaoPlayer1 = pontuacaoAtualPlayer1 + 1, pontuacaoPlayer2 = pontuacaoAtualPlayer2 }
             | otherwise = game { velocidade = (novoX, novoY) }
 
 
@@ -235,7 +235,6 @@ eventosTeclado (EventKey (Char char) _ _ _) game
     | char == 'l' = renderizarPlayer1 $ novaPosicaoBaixoRaquete $ player1 game
     | char == 'w' = renderizarPlayer2 $ novaPosicaoCimaRaquete $ player2 game
     | char == 's' = renderizarPlayer2 $ novaPosicaoBaixoRaquete $ player2 game
-    | char == 'c' = mundoInicial
     | char == 'p' = mundoMenu { pontuacaoPlayer1 = 0, pontuacaoPlayer2 = 0 }
     where
         renderizarPlayer1 posicao = game { player1 = posicao}
