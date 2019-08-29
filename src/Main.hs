@@ -24,7 +24,7 @@ data PingPongGame = Game {
 } deriving Show
 
 -- Define a velocidade utilizada em todo o jogo.
-velocidadePadrao = (196, 110)
+velocidadePadrao = (196, 120)
 
 -- Define a janela do jogo.
 window :: Display
@@ -36,10 +36,6 @@ background = black
 
 -- Define fps da animação
 fps = 30
-
-velocidades = [(196, 50), (-300, 146), (-100, 40)]
-
-velocidadeAleatoria = velocidades!!1
 
 posicaoBolaInicial = (0, 0)
 
@@ -64,7 +60,7 @@ mundoInicial = Game {
 
 mundoMenu = Game {
     posicaoBola1Menu = posicaoBolaInicial,
-    velocidadeBola1 = velocidadeAleatoria,
+    velocidadeBola1 = (-300, 146),
     modoMenu = True,
     posicaoBola = (0, 0),
     velocidade = (196, 106),
@@ -235,6 +231,7 @@ eventosTeclado (EventKey (Char char) _ _ _) game
     | char == 'l' = renderizarPlayer1 $ novaPosicaoBaixoRaquete $ player1 game
     | char == 'w' = renderizarPlayer2 $ novaPosicaoCimaRaquete $ player2 game
     | char == 's' = renderizarPlayer2 $ novaPosicaoBaixoRaquete $ player2 game
+    | char == 'c' = mundoInicial
     | char == 'p' = mundoMenu { pontuacaoPlayer1 = 0, pontuacaoPlayer2 = 0 }
     where
         renderizarPlayer1 posicao = game { player1 = posicao}
